@@ -43,22 +43,34 @@ For each objective you work on don't forget to create a feature branch off of `m
 
 ## GeoServer API (WFS Zika data)
 
-The `docker-compose.yml` file can be used to start up the GeoServer API and Postres DB. For this project week you are focused on consuming this data rather than providing it so you can treat it as a black box. Fortunately, the black box is pre-configured and any WFS Zika outbreak data you need can be accessed after running the following command.
+The `npm run services:start[stop]` scripts can be used to start up and shut down the GeoServer API and Postgres DB containers.
 
-> Start up the stack with:
+For this project week you are focused on consuming and presenting this data rather than providing it so you can treat these services as a black box. Fortunately, the black box is pre-configured and any WFS Zika outbreak data you need can be accessed once the services are up.
+
+**After finishing your primary objectives** you can learn more about how the services work by looking at the scripts and reading about [docker-compose](https://docs.docker.com/compose/).
+
+> Start up the services with:
 
 ```sh
-docker-compose up -d
+npm run services:start
 ```
 
-You can then access the GeoServer data at the following URL:
+> Shut down the services with
+
+```sh
+npm run services:stop
+```
+
+### Accessing the Services
+
+Once the services are up the GeoServer WFS Zika outbreak data can be accessed at the following URL:
 
 - **GeoServer WFS data**: `http://localhost:8080/geoserver/wfs`
 
-> Shut down the stack with
+If you want to poke around the Zika outbreak database it can be accessed through the `psql` client with the `docker exec` command (using its container name `zika-postgres-db`):
 
 ```sh
-docker-compose down
+docker exec -it zika-postgres-db psql -U zika_user -d zika
 ```
 
 ## Zika Client Development
@@ -73,13 +85,13 @@ npm install
 npm i
 ```
 
-Once the dependencies are downloaded to the `node_modules` directory you can begin coding! Remember you can start the `webpack` development server for your client using the NPM `start` script.
+Once the dependencies are downloaded to the `node_modules` directory you can begin coding! You can start the `webpack` development server for your client using the NPM `start` script.
 
 > Start up the development server
 
 ```sh
 npm run start
-# or shorthand
+# or shorthand (only works for start and test scripts)
 npm start
 ```
 

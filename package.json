@@ -6,7 +6,13 @@
   "scripts": {
     "clean": "rm -rf dist/*",
     "build": "npm run clean && webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --config webpack.dev.js --open"
+    "start": "webpack-dev-server --config webpack.dev.js --open",
+    "install:geoserver-config": "bash -c 'if [[ ! -e ./geoserver-config ]]; then $(git clone git@gitlab.com:LaunchCodeTraining/zika-project/geoserver-config.git); fi'",
+    "postinstall": "npm run install:geoserver-config",
+    "prestart:services": "npm run install:geoserver-config",
+    "prestop:services": "npm run install:geoserver-config",
+    "start:services": "docker-compose -f docker-compose.yml -f ./geoserver-config/docker-compose.preconfigured.yml up -d",
+    "stop:services": "docker-compose  -f docker-compose.yml -f ./geoserver-config/docker-compose.preconfigured.yml down"
   },
   "repository": {
     "type": "git",
