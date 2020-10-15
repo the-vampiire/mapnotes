@@ -1,0 +1,15 @@
+<layer>
+  <name>locations_with_cases_by_date</name>
+  <id>LayerInfoImpl-5b505a62:1751e8923cc:-7ff2</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5b505a62:1751e8923cc:-7ffc</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-5b505a62:1751e8923cc:-7ff3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>
