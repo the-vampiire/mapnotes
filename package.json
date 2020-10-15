@@ -1,15 +1,32 @@
 {
   "name": "zika-client",
   "version": "1.0.0",
-  "description": "Zika Dashboard web client",
+  "description": "Zika Dashboard web client for interactively visualizing Zika outbreak data",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist/*",
+    "build": "npm run clean && webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.js --open"
   },
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:LaunchCodeTraining/zika-project/zika-client.git"
   },
   "author": "the-vampiire",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "ol": "^6.4.3"
+  },
+  "devDependencies": {
+    "@types/webpack": "^4.41.22",
+    "@types/webpack-dev-server": "^3.11.0",
+    "css-loader": "^4.3.0",
+    "html-webpack-plugin": "^4.5.0",
+    "source-map-loader": "^1.1.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.2.0"
+  }
 }
