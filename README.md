@@ -41,38 +41,6 @@ For each objective you work on don't forget to create a feature branch off of `m
 
 # Local Development Instructions
 
-## GeoServer API (WFS Zika data)
-
-The `npm run services:start[stop]` scripts can be used to start up and shut down the GeoServer API and Postgres DB containers.
-
-For this project week you are focused on consuming and presenting this data rather than providing it so you can treat these services as a black box. Fortunately, the black box is pre-configured and any WFS Zika outbreak data you need can be accessed once the services are up.
-
-**After finishing your primary objectives** you can learn more about how the services work by looking at the scripts and reading about [docker-compose](https://docs.docker.com/compose/).
-
-> Start up the services with:
-
-```sh
-npm run services:start
-```
-
-> Shut down the services with
-
-```sh
-npm run services:stop
-```
-
-### Accessing the Services
-
-Once the services are up the GeoServer WFS Zika outbreak data can be accessed at the following URL:
-
-- **GeoServer WFS data**: `http://localhost:8080/geoserver/wfs`
-
-If you want to poke around the Zika outbreak database it can be accessed through the `psql` client with the `docker exec` command (using its container name `zika-postgres-db`):
-
-```sh
-docker exec -it zika-postgres-db psql -U zika_user -d zika
-```
-
 ## Zika Client Development
 
 Similar to your workshop this project comes pre-configured with `webpack` and `openlayers` so you can quickly get started on the fun parts of the project.
@@ -87,7 +55,9 @@ npm i
 
 Once the dependencies are downloaded to the `node_modules` directory you can begin coding! You can start the `webpack` development server for your client using the NPM `start` script.
 
-> Start up the development server
+> Start up the development server and services
+
+The `prestart` script will ensure that the GeoServer API and Postgres DB container services are running automatically. If you want to start/stop them separately view the section below.
 
 ```sh
 npm run start
@@ -95,4 +65,44 @@ npm run start
 npm start
 ```
 
-This should open your default browser to `http://localhost:3000` but if it doesn't then click [this link](http://localhost:3000)
+After the `prestart` and `start` scripts are run your default browser should open automatically to `http://localhost:3000`. If it doesn't then click [this link](http://localhost:3000) to view your client.
+
+When you make changes to your code (**and save**) the `webpack` dev server will rebuild and reload the browser page to reflect the changes automatically.
+
+Once the services are up the GeoServer WFS Zika outbreak data can be accessed at the following URL:
+
+- **GeoServer WFS data**: `http://localhost:8080/geoserver/wfs`
+
+## GeoServer API & Postgres DB (WFS Zika data)
+
+The `npm run services:start[stop]` scripts can be used to start up and shut down the GeoServer API and Postgres DB containers separately from the `webpack` development server.
+
+For this project week you are focused on consuming and presenting this data rather than providing it so you can treat these services as a black box. Fortunately, the black box is pre-configured and any WFS Zika outbreak data you need can be accessed once the services are up.
+
+**After finishing your primary objectives** you can learn more about how the services work by looking at the scripts and reading about [docker-compose](https://docs.docker.com/compose/).
+
+> Start up the services with:
+
+```sh
+npm run services:start
+```
+
+> Check the status of the services
+
+```sh
+docker-compose ps
+```
+
+> Shut down the services with
+
+```sh
+npm run services:stop
+```
+
+### Accessing the Database
+
+If you want to poke around the Zika outbreak database it can be accessed through the `psql` client with the `docker exec` command (using its container name `zika-postgres-db`):
+
+```sh
+docker exec -it zika-postgres-db psql -U zika_user -d zika
+```

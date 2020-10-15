@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist/*",
     "build": "npm run clean && webpack --config webpack.prod.js",
+    "prestart": "npm run start:services",
     "start": "webpack-dev-server --config webpack.dev.js --open",
     "install:geoserver-config": "bash -c 'if [[ ! -e ./geoserver-config ]]; then $(git clone git@gitlab.com:LaunchCodeTraining/zika-project/geoserver-config.git); fi'",
     "postinstall": "npm run install:geoserver-config",
