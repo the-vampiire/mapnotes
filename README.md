@@ -45,7 +45,7 @@ If you want to have a bit more guidance to start with you can use the starter co
 
 ## Git Workflow
 
-For each objective you work on don't forget to create a feature branch off of `master` called `objective-#` (replacing `#` with the number of the objective you are on). Full details are availabel in [the project article](https://education.launchcode.org/gis-devops/project-requirements/zika-client/index.html)
+For each objective you work on don't forget to create a feature branch off of `master` called `objective-#` (replacing `#` with the number of the objective you are on). Full details are available in [the project article](https://education.launchcode.org/gis-devops/project-requirements/zika-client/index.html)
 
 # Local Development Instructions
 
