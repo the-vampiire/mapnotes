@@ -1,0 +1,125 @@
+import EventType from "ol/render/EventType";
+import { NOTES_MANAGER_IDs } from "../dom-constants";
+
+/**
+ * produces the following HTML:
+<select id="mapnotes-notes-manager-note-selector">
+  <option value="">Select a Note</option>
+  <option value="namespace-{mapNote.id}">{mapNote.title}</option>
+  ...
+</select>
+ */
+
+const { noteSelectorId } = NOTES_MANAGER_IDs;
+
+/**
+ * @typedef {{ id: number, title: string, body: string}} MapNote
+ */
+
+/**
+ * Builds a unique id attribute value (namespaced with the "map-note" prefix) for a NoteSelector option
+ * - used when creating or selecting a specific NoteSelector option
+ *
+ * @param {number} mapNoteId id property of the MapNote the option represents
+ * @returns {string} the unique id attribute value for a NoteSelectorOption component
+ */
+const buildNoteSelectorOptionId = (mapNoteId) => "";
+
+/**
+ * Builds a NoteSelectorOption component to represent a MapNote
+ * - @see {buildNoteSelectorOptionId} is used to build the id attribute of the option element
+ *
+ * @param {MapNote} mapNote the MapNote to represent as an option
+ * @returns {HTMLOptionElement} a NoteSelectorOption component
+ */
+const buildNoteSelectorOption = (mapNote) => {
+  const option = null;
+
+  return option;
+};
+
+/**
+ *  Builds and appends a new NoteSelectorOption to represent the MapNote
+ * - used when: a new MapNote has been saved
+ * - rendered in: the NoteSelector component
+ *
+ * @param {HTMLSelectElement} noteSelector the target NoteSelector component
+ * @param {MapNote} mapNote the MapNote source
+ */
+const addNoteOption = (noteSelector, mapNote) => {
+  const noteSelectorOption = null;
+
+  noteSelector.append(noteSelectorOption);
+};
+
+/**
+ * Converts an array of MapNotes into NoteSelectorOptions and appends them to the NoteSelector
+ * - used when: individually converting and appending each MapNote is inconvenient
+ * - rendered in: the NoteSelector component
+ *
+ * @param {HTMLSelectElement} noteSelector the target NoteSelector component
+ * @param {MapNote[]} mapNotes an array of MapNote objects
+ */
+const addNoteOptions = (noteSelector, mapNotes) => {
+  const noteSelectorOptions = null;
+
+  noteSelector.append(...noteSelectorOptions);
+};
+
+/**
+ * Removes a NoteOption component from the NoteSelector using a deleted MapItem's id
+ * - used when: a MapItem has been deleted
+ *
+ * - @see buildNoteSelectorOptionId is used to select the NoteOption by its value attribute
+ *
+ * @param {HTMLSelectElement} noteSelector the target NoteSelector component
+ * @param {number} mapNoteId the id of the deleted MapItem
+ */
+const removeNoteOptionByNoteId = (noteSelector, mapNoteId) => {
+  // select the option by finding the NoteOption child (<option> element) with id attribute
+  // note we use querySelector on the parent (noteSelector) to narrow our search only to its children
+  // as opposed to document.querySelector which refers to ALL the children of the HTML document itself
+
+  // use the buildNoteSelectorOptionId to ensure consistency
+  const noteOption = noteSelector.querySelector(
+    `#${buildNoteSelectorOptionId(mapNoteId)}`
+  );
+  if (!noteOption) return; // exit early if the NoteOption is not found
+
+  noteSelector.removeChild(noteOption);
+};
+
+/**
+ * Builds a NoteSelector component
+ * - created when: DOM content has loaded
+ * - rendered in: the NotesManager component (as an argument to @see buildNotesManager)
+ *
+ * @listens Event <select> element change event
+ *
+ * @param {MapNote[]} mapNotes array of MapNotes requested from the MapNotes API
+ * @param {Object} noteSelectorConfig
+ * @param {(changeEvent: Event) => void} noteSelectorConfig.noteSelectHandler change event handler for when a user selects a MapNote to view
+ *
+ * @example
+ *
+ * ```js
+ * const noteSelector = buildNoteSelector(mapNotesFromApi, {
+ *   noteSelectHandler: (changeEvent) => { ... },
+ * });
+ * ```
+ */
+const buildNoteSelector = (mapNotes, noteSelectorConfig) => {
+  const { noteSelectHandler } = noteSelectorConfig;
+
+  const noteSelector = null;
+  // register event listener for the change event using the noteSelectHandler function
+
+  return noteSelector;
+};
+
+export {
+  addNoteOption,
+  addNoteOptions,
+  buildNoteSelector,
+  removeNoteOptionByNoteId,
+};
