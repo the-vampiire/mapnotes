@@ -24,6 +24,9 @@ const {
  * - created when: a user selects a MapNote from the NoteSelector component
  * - rendered in: the ActiveNote container (replacing anything in the container)
  *
+ * @listens Event click event on the delete note button
+ * @listens Event click event on the load features button
+ *
  * @param {{ id: Number, title: String, body: String, }} mapNote the selected note to view
  * @param {Object} noteViewerConfig
  * @param {(clickEvent: Event) => void} noteViewerConfig.loadFeaturesButtonClickHandler event handler for when the load features button is clicked
@@ -49,6 +52,9 @@ const buildNoteViewer = (mapNote, noteViewerConfig) => {
   const noteBodyParagraph = null; // BONUS: allow markdown (SANITIZED!!) + rendering
   const deleteNoteButton = null;
   const loadFeaturesNoteButton = null;
+
+  // register event listener for the click event using the deleteNoteButtonClickHandler function
+  // register event listener for the click event using the loadFeaturesButtonClickHandler function
 
   const noteViewer = null;
 

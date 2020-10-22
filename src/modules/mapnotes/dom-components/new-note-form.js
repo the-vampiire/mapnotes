@@ -32,6 +32,9 @@ const {
  * - created when: a user clicks the create note button in the NotesManager component
  * - rendered in: the ActiveNote container (replacing anything in the container)
  *
+ * @listens Event click event on the save note button
+ * @listens Event click event on the draw features button
+ *
  * @param {Object} newNoteFormConfig
  * @param {(clickEvent: Event) => void} newNoteFormConfig.saveNoteButtonClickHandler event handler for when the save note button is clicked
  * @param {(clickEvent: Event) => void} newNoteFormConfig.drawFeaturesButtonClickHandler event handler for when the draw features button is clicked
@@ -56,6 +59,9 @@ const buildNewNoteForm = (newNoteFormConfig) => {
   const noteTitleInput = null;
   const saveNoteButton = null;
   const drawFeaturesButton = null;
+
+  // register event listener for the click event using the saveNoteButtonClickHandler function
+  // register event listener for the click event using the drawFeaturesButtonClickHandler function
 
   const newNoteForm = null;
 

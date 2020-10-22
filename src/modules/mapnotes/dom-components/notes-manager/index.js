@@ -24,6 +24,7 @@ const { newNoteButtonId, notesManagerFormId } = NOTES_MANAGER_IDs;
  * - NoteSelector: for selecting an existing MapNote to view (as NoteView component)
  * - create note button: for initiating the new MapNote creation process (using the NewNoteForm component)
  *
+ * @listens Event click event on the create note button
  * @param {Object} notesManagerConfig
  * @param {HTMLSelectElement} notesManagerConfig.noteSelector the NoteSelector component
  * @param {(clickEvent: Event) => void} notesManagerConfig.createNoteButtonClickHandler event handler for when the create note button is clicked
@@ -43,7 +44,8 @@ const { newNoteButtonId, notesManagerFormId } = NOTES_MANAGER_IDs;
 const buildNotesManager = (notesManagerConfig) => {
   const { noteSelector, createNoteButtonClickHandler } = notesManagerConfig;
 
-  const newNoteButton = null;
+  const createNoteButton = null;
+  // register event listener for the click event using the createNoteButtonClickHandler function
 
   const notesManager = null;
 
