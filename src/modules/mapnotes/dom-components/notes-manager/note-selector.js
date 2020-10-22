@@ -1,4 +1,3 @@
-import EventType from "ol/render/EventType";
 import { NOTES_MANAGER_IDs } from "../dom-constants";
 
 /**
@@ -21,25 +20,25 @@ const { noteSelectorId } = NOTES_MANAGER_IDs;
  * - used when creating or selecting a specific NoteSelector option
  *
  * @param {number} mapNoteId id property of the MapNote the option represents
- * @returns {string} the unique id attribute value for a NoteSelectorOption component
+ * @returns {string} the unique id attribute value for a NoteOption component
  */
-const buildNoteSelectorOptionId = (mapNoteId) => "";
+const buildNoteOptionId = (mapNoteId) => "";
 
 /**
- * Builds a NoteSelectorOption component to represent a MapNote
- * - @see {buildNoteSelectorOptionId} is used to build the id attribute of the option element
+ * Builds a NoteOption component to represent a MapNote
+ * - @see {buildNoteOptionId} is used to build the id attribute of the option element
  *
  * @param {MapNote} mapNote the MapNote to represent as an option
- * @returns {HTMLOptionElement} a NoteSelectorOption component
+ * @returns {HTMLOptionElement} a NoteOption component
  */
-const buildNoteSelectorOption = (mapNote) => {
+const buildNoteOption = (mapNote) => {
   const option = null;
 
   return option;
 };
 
 /**
- *  Builds and appends a new NoteSelectorOption to represent the MapNote
+ *  Builds and appends a new NoteOption to represent the MapNote
  * - used when: a new MapNote has been saved
  * - rendered in: the NoteSelector component
  *
@@ -47,13 +46,13 @@ const buildNoteSelectorOption = (mapNote) => {
  * @param {MapNote} mapNote the MapNote source
  */
 const addNoteOption = (noteSelector, mapNote) => {
-  const noteSelectorOption = null;
+  const noteOption = null;
 
-  noteSelector.append(noteSelectorOption);
+  noteSelector.append(noteOption);
 };
 
 /**
- * Converts an array of MapNotes into NoteSelectorOptions and appends them to the NoteSelector
+ * Converts an array of MapNotes into NoteOptions and appends them to the NoteSelector
  * - used when: individually converting and appending each MapNote is inconvenient
  * - rendered in: the NoteSelector component
  *
@@ -61,28 +60,28 @@ const addNoteOption = (noteSelector, mapNote) => {
  * @param {MapNote[]} mapNotes an array of MapNote objects
  */
 const addNoteOptions = (noteSelector, mapNotes) => {
-  const noteSelectorOptions = null;
+  const noteOptions = null;
 
-  noteSelector.append(...noteSelectorOptions);
+  noteSelector.append(...noteOptions);
 };
 
 /**
  * Removes a NoteOption component from the NoteSelector using a deleted MapItem's id
  * - used when: a MapItem has been deleted
  *
- * - @see buildNoteSelectorOptionId is used to select the NoteOption by its value attribute
+ * - @see buildNoteOptionId is used to select the NoteOption by its value attribute
  *
  * @param {HTMLSelectElement} noteSelector the target NoteSelector component
  * @param {number} mapNoteId the id of the deleted MapItem
  */
-const removeNoteOptionByNoteId = (noteSelector, mapNoteId) => {
+const removeNoteOption = (noteSelector, mapNoteId) => {
   // select the option by finding the NoteOption child (<option> element) with id attribute
   // note we use querySelector on the parent (noteSelector) to narrow our search only to its children
   // as opposed to document.querySelector which refers to ALL the children of the HTML document itself
 
-  // use the buildNoteSelectorOptionId to ensure consistency
+  // use the buildNoteOptionId to ensure consistency
   const noteOption = noteSelector.querySelector(
-    `#${buildNoteSelectorOptionId(mapNoteId)}`
+    `#${buildNoteOptionId(mapNoteId)}`
   );
   if (!noteOption) return; // exit early if the NoteOption is not found
 
@@ -117,9 +116,4 @@ const buildNoteSelector = (mapNotes, noteSelectorConfig) => {
   return noteSelector;
 };
 
-export {
-  addNoteOption,
-  addNoteOptions,
-  buildNoteSelector,
-  removeNoteOptionByNoteId,
-};
+export { addNoteOption, addNoteOptions, buildNoteSelector, removeNoteOption };
