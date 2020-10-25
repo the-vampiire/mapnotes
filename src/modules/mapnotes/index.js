@@ -75,7 +75,7 @@ const initializeMapNotes = async ({
     createNoteButtonClickHandler: renderNewNoteForm,
   });
 
-  notesManagerTarget.append(notesManagerTarget);
+  notesManagerTarget.append(notesManager);
 
   // NewNoteForm is appended only when a user clicks the create note button
   const newNoteForm = NewNoteForm.buildNewNoteForm({

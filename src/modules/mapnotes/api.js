@@ -1,7 +1,6 @@
 import Context from "./context";
 
-export const DEFAULT_MAP_NOTES_API_URL =
-  process.env.MAP_NOTES_API_URL || "http://localhost:8008";
+export const DEFAULT_MAP_NOTES_API_URL = process.env.MAP_NOTES_API_URL;
 
 const { mapNotesApiUrl } = Context.getContext();
 
