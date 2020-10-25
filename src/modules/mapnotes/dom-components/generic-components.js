@@ -35,6 +35,7 @@ export const buildInputWithLabel = ({ id, inputType, labelText }) => {
 export const buildButton = ({ id, buttonText }) => {
   const button = document.createElement("button");
   button.setAttribute("id", id);
+  button.innerText = buttonText;
 
   return button;
 };
@@ -60,6 +61,7 @@ export const buildOption = ({ id = "", value = "", optionText = "" }) => {
 
 export const buildForm = ({ id, children }) => {
   const form = document.createElement("form");
+  form.addEventListener("submit", (event) => event.preventDefault());
   form.setAttribute("id", id);
   form.append(...children);
 

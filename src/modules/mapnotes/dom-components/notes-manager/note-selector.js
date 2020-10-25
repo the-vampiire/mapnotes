@@ -110,7 +110,7 @@ const removeNoteOption = (noteSelector, mapNoteId) => {
  * });
  * ```
  */
-const buildNoteSelector = (mapNotes, noteSelectorConfig) => {
+const buildNoteSelector = (mapNotes = [], noteSelectorConfig) => {
   const { noteSelectHandler } = noteSelectorConfig;
 
   const noteSelector = buildSelect({ id: NOTES_MANAGER_IDs.noteSelectorId });

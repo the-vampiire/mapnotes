@@ -50,11 +50,14 @@ const buildNotesManager = (notesManagerConfig) => {
   });
 
   // register event listener for the click event using the createNoteButtonClickHandler function
-  createNoteButton.addEventListener("click", createNoteButtonClickHandler);
+  createNoteButton.addEventListener("click", (event) => {
+    event.preventDefault(); // wrap the call to ensure default form behavior is prevented
+    return createNoteButtonClickHandler(event);
+  });
 
   const notesManager = buildForm({
     id: NOTES_MANAGER_IDs.notesManagerFormId,
-    children: [noteSelector, createNoteButtonClickHandler],
+    children: [noteSelector, createNoteButton],
   });
 
   return notesManager;
