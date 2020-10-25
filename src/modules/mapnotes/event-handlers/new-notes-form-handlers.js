@@ -1,5 +1,9 @@
+import { GeoJSON } from "ol/format";
 import { Draw, Snap } from "ol/src/interaction";
+
+import API from "../api";
 import Context from "../context";
+import { DOMConstants, NoteSelector } from "../dom-components";
 
 /**
  * Enables drawing features related to the MapNote note button handler of the active NewNoteForm component
@@ -15,13 +19,13 @@ import Context from "../context";
  *
  * @param {Event} clickEvent click event of the save note button
  */
-function drawFeatures(clickEvent) {
+const drawFeatures = (clickEvent) => {
   const { map, editableSource } = Context.getContext();
   // TODO: abstract EditableLayer class
   // getsource, enable(), disable() abstractions
   map.addInteraction(new Snap({ source: editableSource }));
   map.addInteraction(new Draw({ source: editableSource, type: "Polygon" }));
-}
+};
 
 /**
  * Saves a MapNote and its related features
@@ -38,10 +42,31 @@ function drawFeatures(clickEvent) {
  *
  * @param {Event} clickEvent click event of the save note button
  */
-function saveNote(clickEvent) {
-  console.log("save note clicked");
+const saveNote = async (clickEvent) => {
   const { editableSource } = Context.getContext();
-  console.log(editableSource.getFeatures());
-}
+  const titleInput = document.getElementById(
+    DOMConstants.NEW_NOTE_FORM_IDs.titleInputId
+  );
+
+  const bodyInput = document.getElementById(
+    DOMConstants.NEW_NOTE_FORM_IDs.bodyInputId
+  );
+
+  // transfer data
+  const mapNotePayload = { title: titleInput.value, body: bodyInput.value };
+  const mapNote = await API.createMapNote(mapNotePayload);
+
+  const features = editableSource.getFeatures();
+  const featuresPayload = new GeoJSON().writeFeatures(features);
+  await API.updateMapNoteFeatures(mapNote.id, featuresPayload);
+
+  // synchronize UI
+  bodyInput.value = "";
+  titleInput.value = "";
+  const noteSelector = document.getElementById(
+    DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
+  );
+  NoteSelector.addNoteOption(noteSelector, mapNote);
+};
 
 export { saveNote, drawFeatures };
