@@ -1,7 +1,8 @@
 // dev config: common config + dev environment configuration
-
+const path = require("path");
 const { merge } = require("webpack-merge"); // merge webpack configs
 const commonConfig = require("./webpack.common"); // import the common config file
+const DotEnvPlugin = require("dotenv-webpack");
 const { HotModuleReplacementPlugin } = require("webpack");
 
 // export the merged common + dev environment configs
@@ -38,5 +39,8 @@ module.exports = merge(commonConfig, {
   },
 
   // plugin for implementing HMR
-  plugins: [new HotModuleReplacementPlugin()],
+  plugins: [
+    new HotModuleReplacementPlugin(),
+    new DotEnvPlugin({ path: path.join(__dirname, "dev.env") }),
+  ],
 });

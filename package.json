@@ -25,9 +25,10 @@
     "ol": "^6.4.3"
   },
   "devDependencies": {
-    "@types/webpack": "^4.41.22",
+    "@types/webpack": "^4.41.23",
     "@types/webpack-dev-server": "^3.11.0",
     "css-loader": "^4.3.0",
+    "dotenv-webpack": "^4.0.0",
     "html-webpack-plugin": "^4.5.0",
     "source-map-loader": "^1.1.1",
     "style-loader": "^2.0.0",
