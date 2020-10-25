@@ -9,8 +9,13 @@
       body,
       #map {
         width: 100%;
-        height: 100%;
+        height: 80%;
         margin: 0;
+      }
+      #mapnotes {
+        width: 100%;
+        height: 20%;
+        bottom: 20%;
       }
     </style>
 
@@ -18,22 +23,26 @@
   </head>
   <body>
     <div id="date-search">
-    Search by Date
-    <select id="search-date"></select>
-    <input type="button" id="search-by-date-button" value="Search by Date" />
+      Search by Date
+      <select id="search-date"></select>
+      <input type="button" id="search-by-date-button" value="Search by Date" />
     </div>
     <div id="date-range-search">
-    Date Range Search: 
+      Date Range Search:
       <select id="start-date"></select>
       <select id="end-date"></select>
-    <input type="button" id="get-report-layer" value="Date Range Search" />
+      <input type="button" id="get-report-layer" value="Date Range Search" />
     </div>
     <div id="case-operator-search">
-    Search by Case: Locations
-    <select id="search-operators"></select>
-    <input type="number" id="cases" min="0" max="500000" step="1"/> Cases
-    <input type="button" id="get-cases" value="Get Cases" />
+      Search by Case: Locations
+      <select id="search-operators"></select>
+      <input type="number" id="cases" min="0" max="500000" step="1" /> Cases
+      <input type="button" id="get-cases" value="Get Cases" />
     </div>
     <div id="map"></div>
+    <div id="mapnotes">
+      <div id="mapnotes-manager"></div>
+      <div id="mapnotes-active-note"></div>
+    </div>
   </body>
 </html>
