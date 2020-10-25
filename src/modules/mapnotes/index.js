@@ -6,7 +6,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 
 import Context from "./context";
-import API, { DEFAULT_MAP_NOTES_API_URL } from "./api";
+import MapNotesApi, { DEFAULT_MAP_NOTES_API_URL } from "./api";
 
 import {
   NewNoteForm,
@@ -62,8 +62,10 @@ const initializeMapNotes = async ({
     );
   }
 
+  const mapNotesApi = new MapNotesApi(mapNotesApiUrl);
+
   // get MapNotes
-  const mapNotes = await API.getMapNotes();
+  const mapNotes = await mapNotesApi.getMapNotes();
 
   // build the NotesManager component and append it to its target
   const noteSelector = NoteSelector.buildNoteSelector(mapNotes, {
@@ -86,15 +88,14 @@ const initializeMapNotes = async ({
   // instantiate the editable vector source and layer
   const editableSource = new VectorSource();
   const editableLayer = new VectorLayer({ source: editableSource });
-
   // makes them accessible in other modules that use them by:
   // importing the Context module and calling Context.getContext()
   Context.addContext({
     map,
+    mapNotesApi,
     newNoteForm,
     editableLayer,
     editableSource,
-    mapNotesApiUrl,
     activeNoteTarget,
     activeNoteTargetId,
   });

@@ -6,7 +6,7 @@
  * @property {import('ol/source/Vector').default} editableSource the editable vector source
  * @property {HTMLElement} activeNoteTarget the ActiveNote container to render within
  * @property {string} activeNoteTargetId the ID attribute of the ActiveNote target container
- * @property {string} mapNotesApiUrl URL of the MapNotes API to communicate with
+ * @property {import('src/modules/mapnotes/api').default} mapNotesApi MapNotes API object for making requests
  */
 
 /**
@@ -29,7 +29,7 @@ function Context() {
     newNoteForm: null,
     editableLayer: null,
     editableSource: null,
-    mapNotesApiUrl: null,
+    mapNotesApi: null,
     activeNoteTarget: null,
     activeNoteTargetId: null,
   };

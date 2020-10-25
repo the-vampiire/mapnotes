@@ -1,12 +1,6 @@
-import API from "../api";
 import Context from "../context";
-import {
-  DOMConstants,
-  NewNoteForm,
-  NoteSelector,
-  NoteViewer,
-} from "../dom-components";
-import { deleteNote, loadFeatures } from "./note-viewer-handler";
+import { deleteNote, loadFeatures } from "./note-viewer-handlers";
+import { DOMConstants, NoteSelector, NoteViewer } from "../dom-components";
 
 /**
  * Renders a NewNoteForm component
@@ -41,12 +35,12 @@ const renderNewNoteForm = (clickEvent) => {
  * @param {Event} changeEvent change event of the NoteSelector component's underlying <selector> element
  */
 const renderNoteViewer = async (changeEvent) => {
-  const { activeNoteTarget } = Context.getContext();
+  const { activeNoteTarget, mapNotesApi } = Context.getContext();
 
   const noteId = changeEvent.target.value;
   if (!noteId) return; // exit early if the default option is chosen
 
-  const mapNote = await API.getMapNote(noteId);
+  const mapNote = await mapNotesApi.getMapNote(noteId);
   if (!mapNote) {
     // 404
     const noteSelector = document.getElementById(

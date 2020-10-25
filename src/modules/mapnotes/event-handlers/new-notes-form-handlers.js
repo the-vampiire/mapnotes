@@ -1,7 +1,6 @@
 import { GeoJSON } from "ol/format";
 import { Draw, Snap } from "ol/src/interaction";
 
-import API from "../api";
 import Context from "../context";
 import { DOMConstants, NoteSelector } from "../dom-components";
 
@@ -43,7 +42,7 @@ const drawFeatures = (clickEvent) => {
  * @param {Event} clickEvent click event of the save note button
  */
 const saveNote = async (clickEvent) => {
-  const { map, editableSource } = Context.getContext();
+  const { map, editableSource, mapNotesApi } = Context.getContext();
   // disable interaction
   // TODO: encapsulate editable layer with methods (enable, disable, getSource, getLayer)
   // TODO: remove from context
@@ -58,11 +57,11 @@ const saveNote = async (clickEvent) => {
 
   // transfer data
   const mapNotePayload = { title: titleInput.value, body: bodyInput.value };
-  const mapNote = await API.createMapNote(mapNotePayload);
+  const mapNote = await mapNotesApi.createMapNote(mapNotePayload);
 
   const features = editableSource.getFeatures();
   const featuresPayload = new GeoJSON().writeFeatures(features);
-  await API.updateMapNoteFeatures(mapNote.id, featuresPayload);
+  await mapNotesApi.updateMapNoteFeatures(mapNote.id, featuresPayload);
 
   // synchronize UI
   bodyInput.value = "";
