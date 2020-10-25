@@ -2,6 +2,7 @@ import { GeoJSON } from "ol/format";
 
 import API from "../api";
 import Context from "../context";
+import { DOMConstants, NoteSelector } from "../dom-components";
 
 /**
  * Loads the features associated with the active MapNote
@@ -37,8 +38,17 @@ const loadFeatures = async (clickEvent) => {
  *
  */
 const deleteNote = async (clickEvent) => {
+  const { activeNoteTarget } = Context.getContext();
   // the MapNote's ID is available as the delete button's (event target) value attribute
-  console.log("deleteNote clicked");
+  const noteId = clickEvent.target.value;
+  await API.deleteMapNote(noteId);
+
+  const noteSelector = document.getElementById(
+    DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
+  );
+  NoteSelector.removeNoteOption(noteSelector, noteId);
+
+  activeNoteTarget.firstChild.remove();
 };
 
 export { deleteNote, loadFeatures };
