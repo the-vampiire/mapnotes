@@ -11,7 +11,11 @@ const findEntity = (store) => (entityId) => store[entityId] || null;
 
 const findMapNote = (noteId) => findEntity(mapNoteStore)(noteId);
 
-const findFeatures = (noteId) => findEntity(featureStore)(noteId);
+const findFeatures = (noteId) => {
+  const features = findEntity(featureStore)(noteId);
+
+  return JSON.parse(features);
+};
 
 const findMapNotes = () => Object.values(mapNoteStore);
 
