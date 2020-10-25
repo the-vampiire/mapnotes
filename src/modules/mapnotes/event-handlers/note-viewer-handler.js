@@ -1,3 +1,6 @@
+import { GeoJSON } from "ol/format";
+
+import API from "../api";
 import Context from "../context";
 
 /**
@@ -10,10 +13,16 @@ import Context from "../context";
  *
  * @param {Event} clickEvent click event of the load features button
  */
-function loadFeatures(clickEvent) {
+const loadFeatures = async (clickEvent) => {
+  const { editableSource } = Context.getContext();
   // the MapNote's ID is available as the load features button's (event target) value attribute
-  console.log("loadFeatures clicked");
-}
+  const noteId = clickEvent.target.value;
+  const features = await API.getMapNoteFeatures(noteId);
+  const geoJsonFeatures = new GeoJSON().readFeatures(features);
+
+  editableSource.clear();
+  editableSource.addFeatures(geoJsonFeatures);
+};
 
 /**
  * Delete note button handler of the active NoteViewer component
@@ -27,9 +36,9 @@ function loadFeatures(clickEvent) {
  * @param {Event} clickEvent click event of the delete note button
  *
  */
-function deleteNote(clickEvent) {
+const deleteNote = async (clickEvent) => {
   // the MapNote's ID is available as the delete button's (event target) value attribute
   console.log("deleteNote clicked");
-}
+};
 
 export { deleteNote, loadFeatures };
