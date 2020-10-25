@@ -43,7 +43,11 @@ const drawFeatures = (clickEvent) => {
  * @param {Event} clickEvent click event of the save note button
  */
 const saveNote = async (clickEvent) => {
-  const { editableSource } = Context.getContext();
+  const { map, editableSource } = Context.getContext();
+  // disable interaction
+  // TODO: encapsulate editable layer with methods (enable, disable, getSource, getLayer)
+  // TODO: remove from context
+
   const titleInput = document.getElementById(
     DOMConstants.NEW_NOTE_FORM_IDs.titleInputId
   );
