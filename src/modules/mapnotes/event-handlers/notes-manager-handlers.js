@@ -1,6 +1,11 @@
 import API from "../api";
 import Context from "../context";
-import { NewNoteForm, NoteViewer } from "../dom-components";
+import {
+  DOMConstants,
+  NewNoteForm,
+  NoteSelector,
+  NoteViewer,
+} from "../dom-components";
 import { deleteNote, loadFeatures } from "./note-viewer-handler";
 
 /**
@@ -39,7 +44,17 @@ const renderNoteViewer = async (changeEvent) => {
   const { activeNoteTarget } = Context.getContext();
 
   const noteId = changeEvent.target.value;
+  if (!noteId) return; // exit early if the default option is chosen
+
   const mapNote = await API.getMapNote(noteId);
+  if (!mapNote) {
+    // 404
+    const noteSelector = document.getElementById(
+      DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
+    );
+    NoteSelector.removeNoteOption(noteSelector, noteId);
+    return;
+  }
 
   const noteViewer = NoteViewer.buildNoteViewer(mapNote, {
     deleteNoteButtonClickHandler: deleteNote,
