@@ -16,7 +16,11 @@ import { deleteNote, loadFeatures } from "./note-viewer-handler";
 const renderNewNoteForm = (clickEvent) => {
   const { newNoteForm, activeNoteTarget } = Context.getContext();
 
-  activeNoteTarget.replaceChild(newNoteForm, activeNoteTarget.firstChild);
+  if (activeNoteTarget.firstChild) {
+    activeNoteTarget.replaceChild(newNoteForm, activeNoteTarget.firstChild);
+  } else {
+    activeNoteTarget.append(newNoteForm);
+  }
 };
 
 /**
