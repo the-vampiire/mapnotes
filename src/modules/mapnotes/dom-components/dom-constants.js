@@ -1,17 +1,7 @@
-// use the reference below to access the respective attributes for each element
-// notice how we "namespace" the ids ("mapnotes-") so they are all easily identifable as part of this "mapnotes feature"
-// ensures names are unique relative to other elements in the document
-// can be utilized by other modules / components that need access to the ids
+export const DEFAULT_NOTES_MANAGER_TARGET_ID =
+  "mapnotes-notes-manager-container";
 
-export const MAP_NOTES_CONTAINER_ID =
-  process.env.MAP_NOTES_CONTAINER_ID || "mapnotes-container";
-
-export const MAP_NOTES_CONTAINER = document.querySelector(
-  MAP_NOTES_CONTAINER_ID
-);
-
-export const ACTIVE_NOTE_ID = "mapnotes-active-note";
-export const ACTIVE_NOTE_CONTAINER = document.querySelector(ACTIVE_NOTE_ID);
+export const DEFAULT_ACTIVE_NOTE_TARGET_ID = "mapnotes-active-note-container";
 
 export const NOTE_VIEWER_IDs = {
   noteViewerId: "mapnotes-note-viewer",

@@ -111,9 +111,10 @@ const buildNoteSelector = (mapNotes, noteSelectorConfig) => {
   const { noteSelectHandler } = noteSelectorConfig;
 
   const noteSelector = null;
+  // populate the note selector
   // register event listener for the change event using the noteSelectHandler function
 
   return noteSelector;
 };
 
-export { addNoteOption, addNoteOptions, buildNoteSelector, removeNoteOption };
+export { addNoteOption, addNoteOptions, removeNoteOption, buildNoteSelector };

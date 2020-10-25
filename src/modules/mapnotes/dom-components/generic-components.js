@@ -1,4 +1,4 @@
-export const buildInput = ({ id, inputType, labelText }) => {
+export const buildInputWithLabel = ({ id, inputType, labelText }) => {
   // textarea is its own tag but behaves as a long-form text input
   const isTextAreaInput = inputType.toLowerCase() === "textarea";
 
@@ -28,9 +28,16 @@ export const buildButton = ({ id, buttonText }) => {
   return button;
 };
 
-export const buildHeader = ({ id, headerSize = 1, headerText }) => {
-  // TODO: implemenet the header component builder
-  // remember the tag <h1> and <h5> are generalized as <h{headerSize}>...
+export const buildOption = ({ id, value, optionText }) => {
+  const option = document.createElement("option");
+  option.innerText = optionText;
+  option.setAttribute("value", value);
+
+  if (id) option.setAttribute("id", id);
+
+  return option;
 };
+
+export const buildHeader = ({ id, headerSize = 1, headerText }) => {};
 
 export const buildParagraph = ({ id, paragraphText }) => {};

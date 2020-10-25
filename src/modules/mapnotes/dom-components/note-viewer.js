@@ -53,6 +53,10 @@ const buildNoteViewer = (mapNote, noteViewerConfig) => {
   const deleteNoteButton = null;
   const loadFeaturesNoteButton = null;
 
+  // set the id as the value attribute of the delete button using the MapNote's id
+  // set the id as the value attribute of the load features button using the MapNote's id
+  // simplifies downstream usage in the button handlers
+
   // register event listener for the click event using the deleteNoteButtonClickHandler function
   // register event listener for the click event using the loadFeaturesButtonClickHandler function
 

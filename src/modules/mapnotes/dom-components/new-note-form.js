@@ -1,5 +1,5 @@
 import { NEW_NOTE_FORM_IDs } from "./dom-constants";
-import { buildInput, buildButton } from "./generic-components";
+import { buildInputWithLabel, buildButton } from "./generic-components";
 
 /**
  * produces the following HTML
