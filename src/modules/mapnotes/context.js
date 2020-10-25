@@ -47,7 +47,7 @@ function Context() {
    */
   this.addContext = function (newContext) {
     for (const property in newContext) {
-      if (context[property] !== null) {
+      if (context[property] === null) {
         // only set if null, no overwriting
         context[property] = newContext[property];
       }
