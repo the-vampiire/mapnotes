@@ -1,29 +1,58 @@
-import MockDB from "./api.mock"; // TEMPORARY MOCK
-
-import Context from "./context";
-
 export const DEFAULT_MAP_NOTES_API_URL = process.env.MAP_NOTES_API_URL;
 
-const { mapNotesApiUrl } = Context.getContext();
+const fetchWrapper = async (endpoint, options = {}) => {
+  const response = await fetch(endpoint, options);
 
-const getMapNotes = async () => MockDB.findMapNotes();
+  const contentType = response.headers.get("Content-Type");
 
-const getMapNote = async (noteId) => MockDB.findMapNote(noteId);
+  if (response.ok && contentType && contentType.includes("application/json")) {
+    return response.json();
+  }
 
-const createMapNote = async (newMapNote) => MockDB.saveMapNote(newMapNote);
+  if ([201, 204].includes(response.status)) {
+    return true;
+  }
 
-const deleteMapNote = async (noteId) => MockDB.removeMapNote(noteId);
-
-const updateMapNoteFeatures = async (noteId, geoJsonFeatures) =>
-  MockDB.saveFeatures(noteId, geoJsonFeatures);
-
-const getMapNoteFeatures = async (noteId) => MockDB.findFeatures(noteId);
-
-export default {
-  getMapNote,
-  getMapNotes,
-  createMapNote,
-  deleteMapNote,
-  getMapNoteFeatures,
-  updateMapNoteFeatures,
+  throw new Error("Fetch request failed");
 };
+
+function MapNotesAPI(mapNotesApiUrl) {
+  const buildEndpoint = (endpoint) => `${mapNotesApiUrl}${endpoint}`;
+
+  const notesEndpoint = buildEndpoint("/notes");
+
+  const noteEndpoint = (noteId) => buildEndpoint(`/notes/${noteId}`);
+
+  const featuresEndpoint = (noteId) =>
+    buildEndpoint(`/notes/${noteId}/features`);
+
+  this.getMapNotes = async () => fetchWrapper(notesEndpoint);
+
+  this.getMapNote = async (noteId) => fetchWrapper(noteEndpoint(noteId));
+
+  this.createMapNote = async (newMapNote) => {
+    const body = JSON.stringify(newMapNote);
+    return fetchWrapper(notesEndpoint, {
+      body,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  this.deleteMapNote = async (noteId) =>
+    fetchWrapper(noteEndpoint(noteId), { method: "DELETE" });
+
+  this.updateMapNoteFeatures = async (noteId, geoJsonFeatures) =>
+    fetchWrapper(featuresEndpoint(noteId), {
+      method: "PUT",
+      body: geoJsonFeatures,
+      headers: { "Content-Type": "application/json" },
+    });
+
+  this.getMapNoteFeatures = async (noteId) =>
+    fetchWrapper(featuresEndpoint(noteId));
+}
+
+export default MapNotesAPI;
