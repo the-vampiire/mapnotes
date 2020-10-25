@@ -10,7 +10,9 @@ import Context from "../context";
  *
  * @param {Event} clickEvent click event of the create note button
  */
-function renderNewNoteForm(clickEvent) {}
+function renderNewNoteForm(clickEvent) {
+  console.log("renderNewNoteForm clicked");
+}
 
 /**
  * Renders a NoteViewer component for the selected MapNote
@@ -24,6 +26,8 @@ function renderNewNoteForm(clickEvent) {}
  *
  * @param {Event} changeEvent change event of the NoteSelector component's underlying <selector> element
  */
-function renderNoteViewer(changeEvent) {}
+function renderNoteViewer(changeEvent) {
+  console.log("renderNoteViewer clicked");
+}
 
 export { renderNoteViewer, renderNewNoteForm };
