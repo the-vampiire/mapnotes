@@ -12,6 +12,7 @@ import Context from "../context";
  */
 function loadFeatures(clickEvent) {
   // the MapNote's ID is available as the load features button's (event target) value attribute
+  console.log("loadFeatures clicked");
 }
 
 /**
@@ -28,6 +29,7 @@ function loadFeatures(clickEvent) {
  */
 function deleteNote(clickEvent) {
   // the MapNote's ID is available as the delete button's (event target) value attribute
+  console.log("deleteNote clicked");
 }
 
 export { deleteNote, loadFeatures };

@@ -1,4 +1,7 @@
+import API from "../api";
 import Context from "../context";
+import { NewNoteForm, NoteViewer } from "../dom-components";
+import { deleteNote, loadFeatures } from "./note-viewer-handler";
 
 /**
  * Renders a NewNoteForm component
@@ -10,9 +13,11 @@ import Context from "../context";
  *
  * @param {Event} clickEvent click event of the create note button
  */
-function renderNewNoteForm(clickEvent) {
-  console.log("renderNewNoteForm clicked");
-}
+const renderNewNoteForm = (clickEvent) => {
+  const { newNoteForm, activeNoteTarget } = Context.getContext();
+
+  activeNoteTarget.replaceChild(newNoteForm, activeNoteTarget.firstChild);
+};
 
 /**
  * Renders a NoteViewer component for the selected MapNote
@@ -26,8 +31,18 @@ function renderNewNoteForm(clickEvent) {
  *
  * @param {Event} changeEvent change event of the NoteSelector component's underlying <selector> element
  */
-function renderNoteViewer(changeEvent) {
-  console.log("renderNoteViewer clicked");
-}
+const renderNoteViewer = async (changeEvent) => {
+  const { activeNoteTarget } = Context.getContext();
+
+  const noteId = changeEvent.target.value;
+  const mapNote = await API.getMapNote(noteId);
+
+  const noteViewer = NoteViewer.buildNoteViewer(mapNote, {
+    deleteNoteButtonClickHandler: deleteNote,
+    loadFeaturesButtonClickHandler: loadFeatures,
+  });
+
+  activeNoteTarget.replaceChild(noteViewer, activeNoteTarget.firstChild);
+};
 
 export { renderNoteViewer, renderNewNoteForm };
