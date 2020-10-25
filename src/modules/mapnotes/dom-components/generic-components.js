@@ -58,6 +58,14 @@ export const buildOption = ({ id = "", value = "", optionText = "" }) => {
   return option;
 };
 
+export const buildForm = ({ id, children }) => {
+  const form = document.createElement("form");
+  form.setAttribute("id", id);
+  form.append(...children);
+
+  return form;
+};
+
 export const buildHeader = ({ id, headerSize = 1, headerText }) => {};
 
 export const buildParagraph = ({ id, paragraphText }) => {};
