@@ -4,6 +4,9 @@
  * @property {HTMLFormElement} newNoteForm NewNoteForm component reference
  * @property {import('ol/layer/Vector').default} editableLayer the editable vector layer
  * @property {import('ol/source/Vector').default} editableSource the editable vector source
+ * @property {HTMLElement} activeNoteTarget the ActiveNote container to render within
+ * @property {string} activeNoteTargetId the ID attribute of the ActiveNote target container
+ * @property {string} mapNotesApiUrl URL of the MapNotes API to communicate with
  */
 
 /**
@@ -26,6 +29,9 @@ function Context() {
     newNoteForm: null,
     editableLayer: null,
     editableSource: null,
+    mapNotesApiUrl: null,
+    activeNoteTarget: null,
+    activeNoteTargetId: null,
   };
 
   /**
@@ -46,7 +52,7 @@ function Context() {
   };
 
   /**
-   * Get (read-only) access to the shared context
+   * Access the shared context
    * @returns {MapNotesContext} MapNotes context container
    *
    * @example
