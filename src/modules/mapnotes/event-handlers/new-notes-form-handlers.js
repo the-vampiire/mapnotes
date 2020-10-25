@@ -1,3 +1,4 @@
+import { Draw, Snap } from "ol/src/interaction";
 import Context from "../context";
 
 /**
@@ -15,7 +16,11 @@ import Context from "../context";
  * @param {Event} clickEvent click event of the save note button
  */
 function drawFeatures(clickEvent) {
-  console.log("drawFeatures clicked");
+  const { map, editableSource } = Context.getContext();
+  // TODO: abstract EditableLayer class
+  // getsource, enable(), disable() abstractions
+  map.addInteraction(new Snap({ source: editableSource }));
+  map.addInteraction(new Draw({ source: editableSource, type: "Polygon" }));
 }
 
 /**
@@ -35,6 +40,8 @@ function drawFeatures(clickEvent) {
  */
 function saveNote(clickEvent) {
   console.log("save note clicked");
+  const { editableSource } = Context.getContext();
+  console.log(editableSource.getFeatures());
 }
 
 export { saveNote, drawFeatures };
