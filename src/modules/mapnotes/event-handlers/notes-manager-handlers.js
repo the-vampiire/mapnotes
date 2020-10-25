@@ -46,7 +46,11 @@ const renderNoteViewer = async (changeEvent) => {
     loadFeaturesButtonClickHandler: loadFeatures,
   });
 
-  activeNoteTarget.replaceChild(noteViewer, activeNoteTarget.firstChild);
+  if (activeNoteTarget.firstChild) {
+    activeNoteTarget.replaceChild(noteViewer, activeNoteTarget.firstChild);
+  } else {
+    activeNoteTarget.append(noteViewer);
+  }
 };
 
 export { renderNoteViewer, renderNewNoteForm };
