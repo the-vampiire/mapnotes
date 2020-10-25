@@ -68,6 +68,18 @@ export const buildForm = ({ id, children }) => {
   return form;
 };
 
-export const buildHeader = ({ id, headerSize = 1, headerText }) => {};
+export const buildHeader = ({ id, headerSize = 1, headerText }) => {
+  const header = document.createElement(`h${headerSize}`);
+  header.innerText = headerText;
+  header.setAttribute("id", id);
 
-export const buildParagraph = ({ id, paragraphText }) => {};
+  return header;
+};
+
+export const buildParagraph = ({ id, paragraphText }) => {
+  const paragraph = document.createElement("p");
+  paragraph.setAttribute("id", id);
+  paragraph.innerText = paragraphText;
+
+  return paragraph;
+};

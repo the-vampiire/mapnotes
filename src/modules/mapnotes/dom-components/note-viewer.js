@@ -1,5 +1,11 @@
+import { deleteNote, loadFeatures } from "../event-handlers";
 import { NOTE_VIEWER_IDs } from "./dom-constants";
-import { buildHeader, buildParagraph, buildButton } from "./generic-components";
+import {
+  buildHeader,
+  buildParagraph,
+  buildButton,
+  buildForm,
+} from "./generic-components";
 
 /**
  * produces the following HTML:
@@ -16,7 +22,7 @@ const {
   titleHeaderId,
   bodyParagraphId,
   deleteNoteButtonId,
-  loadFeaturesNoteButtonId,
+  loadFeaturesButtonId,
 } = NOTE_VIEWER_IDs;
 
 /**
@@ -48,19 +54,46 @@ const buildNoteViewer = (mapNote, noteViewerConfig) => {
     loadFeaturesButtonClickHandler,
   } = noteViewerConfig;
 
-  const noteTitleHeader = null;
-  const noteBodyParagraph = null; // BONUS: allow markdown (SANITIZED!!) + rendering
-  const deleteNoteButton = null;
-  const loadFeaturesNoteButton = null;
+  const noteTitleHeader = buildHeader({
+    headerText: mapNote.title,
+    id: NOTE_VIEWER_IDs.titleHeaderId,
+  });
+
+  const noteBodyParagraph = buildParagraph({
+    paragraphText: mapNote.body,
+    id: NOTE_VIEWER_IDs.bodyParagraphId,
+  }); // BONUS: allow markdown (SANITIZED!!) + rendering
+
+  const deleteNoteButton = buildButton({
+    buttonText: "Delete Note",
+    id: NOTE_VIEWER_IDs.deleteNoteButtonId,
+  });
+
+  const loadFeaturesButton = buildButton({
+    buttonText: "Load Features",
+    id: NOTE_VIEWER_IDs.loadFeaturesButtonId,
+  });
 
   // set the id as the value attribute of the delete button using the MapNote's id
   // set the id as the value attribute of the load features button using the MapNote's id
   // simplifies downstream usage in the button handlers
+  deleteNoteButton.setAttribute("value", mapNote.id);
+  loadFeaturesButton.setAttribute("value", mapNote.id);
 
   // register event listener for the click event using the deleteNoteButtonClickHandler function
   // register event listener for the click event using the loadFeaturesButtonClickHandler function
+  deleteNoteButton.addEventListener("click", deleteNoteButtonClickHandler);
+  loadFeaturesButton.addEventListener("click", loadFeaturesButtonClickHandler);
 
-  const noteViewer = null;
+  const noteViewer = buildForm({
+    id: NOTE_VIEWER_IDs.noteViewerId,
+    children: [
+      noteTitleHeader,
+      noteBodyParagraph,
+      loadFeaturesButton,
+      deleteNoteButton,
+    ],
+  });
 
   return noteViewer;
 };
