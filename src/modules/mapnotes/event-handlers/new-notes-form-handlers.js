@@ -14,7 +14,9 @@ import Context from "../context";
  *
  * @param {Event} clickEvent click event of the save note button
  */
-function drawFeatures(clickEvent) {}
+function drawFeatures(clickEvent) {
+  console.log("drawFeatures clicked");
+}
 
 /**
  * Saves a MapNote and its related features
@@ -31,6 +33,8 @@ function drawFeatures(clickEvent) {}
  *
  * @param {Event} clickEvent click event of the save note button
  */
-function saveNote(clickEvent) {}
+function saveNote(clickEvent) {
+  console.log("save note clicked");
+}
 
 export { saveNote, drawFeatures };
