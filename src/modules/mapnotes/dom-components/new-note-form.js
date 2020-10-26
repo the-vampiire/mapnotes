@@ -1,5 +1,9 @@
 import { NEW_NOTE_FORM_IDs } from "./dom-constants";
-import { buildInputWithLabel, buildButton } from "./generic-components";
+import {
+  buildForm,
+  buildButton,
+  buildInputWithLabel,
+} from "./generic-components";
 
 /**
  * produces the following HTML
@@ -55,15 +59,43 @@ const buildNewNoteForm = (newNoteFormConfig) => {
     drawFeaturesButtonClickHandler,
   } = newNoteFormConfig;
 
-  const noteBodyInput = null;
-  const noteTitleInput = null;
-  const saveNoteButton = null;
-  const drawFeaturesButton = null;
+  const noteBodyInput = buildInputWithLabel({
+    labelText: "Details",
+    inputType: "textarea",
+    id: NEW_NOTE_FORM_IDs.bodyInputId,
+  });
+
+  const noteTitleInput = buildInputWithLabel({
+    inputType: "text",
+    labelText: "Title",
+    id: NEW_NOTE_FORM_IDs.titleInputId,
+  });
+
+  const saveNoteButton = buildButton({
+    id: NEW_NOTE_FORM_IDs.saveNoteButtonId,
+    buttonText: "Save",
+  });
+
+  const drawFeaturesButton = buildButton({
+    buttonText: "Draw Features",
+    id: NEW_NOTE_FORM_IDs.drawFeaturesButtonId,
+  });
 
   // register event listener for the click event using the saveNoteButtonClickHandler function
   // register event listener for the click event using the drawFeaturesButtonClickHandler function
+  saveNoteButton.addEventListener("click", saveNoteButtonClickHandler);
+  drawFeaturesButton.addEventListener("click", drawFeaturesButtonClickHandler);
 
-  const newNoteForm = null;
+  const newNoteForm = buildForm({
+    id: NEW_NOTE_FORM_IDs.newNoteFormId,
+    children: [
+      noteTitleInput,
+      noteBodyInput,
+      drawFeaturesButton,
+      saveNoteButton,
+    ],
+  });
+  newNoteForm.addEventListener("submit", (event) => event.preventDefault());
 
   return newNoteForm;
 };

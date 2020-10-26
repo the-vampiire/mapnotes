@@ -1,12 +1,10 @@
 /**
  * @typedef MapNotesContext MapNotes context container
- * @property {import('ol/src/Map').default} map OpenLayers map reference
  * @property {HTMLFormElement} newNoteForm NewNoteForm component reference
- * @property {import('ol/layer/Vector').default} editableLayer the editable vector layer
- * @property {import('ol/source/Vector').default} editableSource the editable vector source
  * @property {HTMLElement} activeNoteTarget the ActiveNote container to render within
  * @property {string} activeNoteTargetId the ID attribute of the ActiveNote target container
- * @property {string} mapNotesApiUrl URL of the MapNotes API to communicate with
+ * @property {import('src/modules/mapnotes/map-notes-layer').default} mapNotesLayer MapNotes editable layer manager
+ * @property {import('src/modules/mapnotes/api').default} mapNotesApi MapNotes API object for making requests
  */
 
 /**
@@ -25,11 +23,11 @@
  */
 function Context() {
   const context = {
-    map: null,
     newNoteForm: null,
+    mapNotesApi: null,
+    mapNotesLayer: null,
     editableLayer: null,
     editableSource: null,
-    mapNotesApiUrl: null,
     activeNoteTarget: null,
     activeNoteTargetId: null,
   };
@@ -47,7 +45,7 @@ function Context() {
    */
   this.addContext = function (newContext) {
     for (const property in newContext) {
-      if (context[property] !== null) {
+      if (context[property] === null) {
         // only set if null, no overwriting
         context[property] = newContext[property];
       }
