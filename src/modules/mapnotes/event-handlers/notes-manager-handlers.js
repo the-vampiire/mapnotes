@@ -1,6 +1,4 @@
 import Context from "../context";
-import { deleteNote, loadFeatures } from "./note-viewer-handlers";
-import { DOMConstants, NoteSelector, NoteViewer } from "../dom-components";
 
 /**
  * Renders a NewNoteForm component
@@ -12,15 +10,7 @@ import { DOMConstants, NoteSelector, NoteViewer } from "../dom-components";
  *
  * @param {Event} clickEvent click event of the create note button
  */
-const renderNewNoteForm = (clickEvent) => {
-  const { newNoteForm, activeNoteTarget } = Context.getContext();
-
-  if (activeNoteTarget.firstChild) {
-    activeNoteTarget.replaceChild(newNoteForm, activeNoteTarget.firstChild);
-  } else {
-    activeNoteTarget.append(newNoteForm);
-  }
-};
+function renderNewNoteForm(clickEvent) {}
 
 /**
  * Renders a NoteViewer component for the selected MapNote
@@ -34,32 +24,6 @@ const renderNewNoteForm = (clickEvent) => {
  *
  * @param {Event} changeEvent change event of the NoteSelector component's underlying <selector> element
  */
-const renderNoteViewer = async (changeEvent) => {
-  const { activeNoteTarget, mapNotesApi } = Context.getContext();
-
-  const noteId = changeEvent.target.value;
-  if (!noteId) return; // exit early if the default option is chosen
-
-  const mapNote = await mapNotesApi.getMapNote(noteId);
-  if (!mapNote) {
-    // 404
-    const noteSelector = document.getElementById(
-      DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
-    );
-    NoteSelector.removeNoteOption(noteSelector, noteId);
-    return;
-  }
-
-  const noteViewer = NoteViewer.buildNoteViewer(mapNote, {
-    deleteNoteButtonClickHandler: deleteNote,
-    loadFeaturesButtonClickHandler: loadFeatures,
-  });
-
-  if (activeNoteTarget.firstChild) {
-    activeNoteTarget.replaceChild(noteViewer, activeNoteTarget.firstChild);
-  } else {
-    activeNoteTarget.append(noteViewer);
-  }
-};
+function renderNoteViewer(changeEvent) {}
 
 export { renderNoteViewer, renderNewNoteForm };

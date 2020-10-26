@@ -6,8 +6,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 
 import Context from "./context";
-import MapNotesLayer from "./map-notes-layer";
-import MapNotesApi, { DEFAULT_MAP_NOTES_API_URL } from "./api";
+import API, { DEFAULT_MAP_NOTES_API_URL } from "./api";
 
 import {
   NewNoteForm,
@@ -29,7 +28,6 @@ import {
  * @property {string} [mapNotesApiUrl] URL of the MapNotes API
  * @property {string} [activeNoteTargetId] ID of the element target to render the active MapNote
  * @property {string} [notesManagerTargetId] ID of the element target to render the MapNotes manager
- * @property {import('ol/layer/Vector').default} [editableLayer] the layer with an editable source for capturing and loading MapNote features
  *
  */
 
@@ -47,7 +45,6 @@ import {
  */
 const initializeMapNotes = async ({
   map,
-  editableLayer = null,
   mapNotesApiUrl = DEFAULT_MAP_NOTES_API_URL,
   activeNoteTargetId = DOMConstants.DEFAULT_ACTIVE_NOTE_TARGET_ID,
   notesManagerTargetId = DOMConstants.DEFAULT_NOTES_MANAGER_TARGET_ID,
@@ -65,10 +62,8 @@ const initializeMapNotes = async ({
     );
   }
 
-  const mapNotesApi = new MapNotesApi(mapNotesApiUrl);
-
   // get MapNotes
-  const mapNotes = await mapNotesApi.getMapNotes();
+  const mapNotes = await API.getMapNotes();
 
   // build the NotesManager component and append it to its target
   const noteSelector = NoteSelector.buildNoteSelector(mapNotes, {
@@ -89,14 +84,17 @@ const initializeMapNotes = async ({
   });
 
   // instantiate the editable vector source and layer
-  const mapNotesLayer = new MapNotesLayer({ map, editableLayer });
+  const editableSource = new VectorSource();
+  const editableLayer = new VectorLayer({ source: editableSource });
 
   // makes them accessible in other modules that use them by:
   // importing the Context module and calling Context.getContext()
   Context.addContext({
+    map,
     newNoteForm,
-    mapNotesApi,
-    mapNotesLayer,
+    editableLayer,
+    editableSource,
+    mapNotesApiUrl,
     activeNoteTarget,
     activeNoteTargetId,
   });
