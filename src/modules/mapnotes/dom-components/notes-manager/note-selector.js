@@ -1,6 +1,4 @@
-import { NoteSelector } from "..";
 import { NOTES_MANAGER_IDs } from "../dom-constants";
-import { buildOption, buildSelect } from "../generic-components";
 
 /**
  * produces the following HTML:
@@ -24,7 +22,7 @@ const { noteSelectorId } = NOTES_MANAGER_IDs;
  * @param {number} mapNoteId id property of the MapNote the option represents
  * @returns {string} the unique id attribute value for a NoteOption component
  */
-const buildNoteOptionId = (mapNoteId) => `mapnote-option-${mapNoteId}`;
+const buildNoteOptionId = (mapNoteId) => "";
 
 /**
  * Builds a NoteOption component to represent a MapNote
@@ -33,12 +31,11 @@ const buildNoteOptionId = (mapNoteId) => `mapnote-option-${mapNoteId}`;
  * @param {MapNote} mapNote the MapNote to represent as an option
  * @returns {HTMLOptionElement} a NoteOption component
  */
-const buildNoteOption = (mapNote) =>
-  buildOption({
-    value: mapNote.id,
-    optionText: mapNote.title,
-    id: buildNoteOptionId(mapNote.id),
-  });
+const buildNoteOption = (mapNote) => {
+  const option = null;
+
+  return option;
+};
 
 /**
  *  Builds and appends a new NoteOption to represent the MapNote
@@ -49,7 +46,7 @@ const buildNoteOption = (mapNote) =>
  * @param {MapNote} mapNote the MapNote source
  */
 const addNoteOption = (noteSelector, mapNote) => {
-  const noteOption = buildNoteOption(mapNote);
+  const noteOption = null;
 
   noteSelector.append(noteOption);
 };
@@ -63,7 +60,7 @@ const addNoteOption = (noteSelector, mapNote) => {
  * @param {MapNote[]} mapNotes an array of MapNote objects
  */
 const addNoteOptions = (noteSelector, mapNotes) => {
-  const noteOptions = mapNotes.map(buildNoteOption);
+  const noteOptions = null;
 
   noteSelector.append(...noteOptions);
 };
@@ -110,19 +107,12 @@ const removeNoteOption = (noteSelector, mapNoteId) => {
  * });
  * ```
  */
-const buildNoteSelector = (mapNotes = [], noteSelectorConfig) => {
+const buildNoteSelector = (mapNotes, noteSelectorConfig) => {
   const { noteSelectHandler } = noteSelectorConfig;
 
-  const noteSelector = buildSelect({ id: NOTES_MANAGER_IDs.noteSelectorId });
-
+  const noteSelector = null;
   // populate the note selector
-  noteSelector.append(
-    buildOption({ value: "", optionText: "Select a MapNote" })
-  );
-  addNoteOptions(noteSelector, mapNotes);
-
   // register event listener for the change event using the noteSelectHandler function
-  noteSelector.addEventListener("change", noteSelectHandler);
 
   return noteSelector;
 };

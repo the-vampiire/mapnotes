@@ -1,5 +1,5 @@
 import { NOTES_MANAGER_IDs } from "../dom-constants";
-import { buildButton, buildForm } from "../generic-components";
+import { buildButton } from "../generic-components";
 
 /**
  * produces the following HTML:
@@ -44,21 +44,10 @@ const { newNoteButtonId, notesManagerFormId } = NOTES_MANAGER_IDs;
 const buildNotesManager = (notesManagerConfig) => {
   const { noteSelector, createNoteButtonClickHandler } = notesManagerConfig;
 
-  const createNoteButton = buildButton({
-    buttonText: "Create MapNote",
-    id: NOTES_MANAGER_IDs.createNoteButtonId,
-  });
-
+  const createNoteButton = null;
   // register event listener for the click event using the createNoteButtonClickHandler function
-  createNoteButton.addEventListener("click", (event) => {
-    event.preventDefault(); // wrap the call to ensure default form behavior is prevented
-    return createNoteButtonClickHandler(event);
-  });
 
-  const notesManager = buildForm({
-    id: NOTES_MANAGER_IDs.notesManagerFormId,
-    children: [noteSelector, createNoteButton],
-  });
+  const notesManager = null;
 
   return notesManager;
 };

@@ -1,8 +1,4 @@
-import { GeoJSON } from "ol/format";
-import { Draw, Snap } from "ol/src/interaction";
-
 import Context from "../context";
-import { DOMConstants, NoteSelector } from "../dom-components";
 
 /**
  * Enables drawing features related to the MapNote note button handler of the active NewNoteForm component
@@ -18,10 +14,7 @@ import { DOMConstants, NoteSelector } from "../dom-components";
  *
  * @param {Event} clickEvent click event of the save note button
  */
-const drawFeatures = (clickEvent) => {
-  const { mapNotesLayer } = Context.getContext();
-  mapNotesLayer.enableDrawing();
-};
+function drawFeatures(clickEvent) {}
 
 /**
  * Saves a MapNote and its related features
@@ -38,36 +31,6 @@ const drawFeatures = (clickEvent) => {
  *
  * @param {Event} clickEvent click event of the save note button
  */
-const saveNote = async (clickEvent) => {
-  const { mapNotesLayer, mapNotesApi } = Context.getContext();
-
-  const titleInput = document.getElementById(
-    DOMConstants.NEW_NOTE_FORM_IDs.titleInputId
-  );
-
-  const bodyInput = document.getElementById(
-    DOMConstants.NEW_NOTE_FORM_IDs.bodyInputId
-  );
-
-  // transfer data
-  const mapNotePayload = { title: titleInput.value, body: bodyInput.value };
-  const mapNote = await mapNotesApi.createMapNote(mapNotePayload);
-
-  const features = mapNotesLayer.getDrawnFeatures();
-  const featuresPayload = new GeoJSON().writeFeatures(features);
-  await mapNotesApi.updateMapNoteFeatures(mapNote.id, featuresPayload);
-
-  // synchronize UI
-  mapNotesLayer.disableDrawing();
-  mapNotesLayer.clearDrawnFeatures();
-
-  bodyInput.value = "";
-  titleInput.value = "";
-
-  const noteSelector = document.getElementById(
-    DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
-  );
-  NoteSelector.addNoteOption(noteSelector, mapNote);
-};
+function saveNote(clickEvent) {}
 
 export { saveNote, drawFeatures };
