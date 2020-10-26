@@ -14,14 +14,14 @@ import { DOMConstants, NoteSelector } from "../dom-components";
  * @param {Event} clickEvent click event of the load features button
  */
 const loadFeatures = async (clickEvent) => {
-  const { editableSource, mapNotesApi } = Context.getContext();
+  const { mapNotesLayer, mapNotesApi } = Context.getContext();
   // the MapNote's ID is available as the load features button's (event target) value attribute
   const noteId = clickEvent.target.value;
   const features = await mapNotesApi.getMapNoteFeatures(noteId);
   const geoJsonFeatures = new GeoJSON().readFeatures(features);
 
-  editableSource.clear();
-  editableSource.addFeatures(geoJsonFeatures);
+  mapNotesLayer.clearDrawnFeatures();
+  mapNotesLayer.renderFeatures(geoJsonFeatures);
 };
 
 /**
@@ -37,10 +37,12 @@ const loadFeatures = async (clickEvent) => {
  *
  */
 const deleteNote = async (clickEvent) => {
-  const { activeNoteTarget, mapNotesApi } = Context.getContext();
+  const { activeNoteTarget, mapNotesApi, mapNotesLayer } = Context.getContext();
   // the MapNote's ID is available as the delete button's (event target) value attribute
   const noteId = clickEvent.target.value;
   await mapNotesApi.deleteMapNote(noteId);
+
+  mapNotesLayer.clearDrawnFeatures();
 
   const noteSelector = document.getElementById(
     DOMConstants.NOTES_MANAGER_IDs.noteSelectorId

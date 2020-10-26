@@ -19,11 +19,8 @@ import { DOMConstants, NoteSelector } from "../dom-components";
  * @param {Event} clickEvent click event of the save note button
  */
 const drawFeatures = (clickEvent) => {
-  const { map, editableSource } = Context.getContext();
-  // TODO: abstract EditableLayer class
-  // getsource, enable(), disable() abstractions
-  map.addInteraction(new Snap({ source: editableSource }));
-  map.addInteraction(new Draw({ source: editableSource, type: "Polygon" }));
+  const { mapNotesLayer } = Context.getContext();
+  mapNotesLayer.enableDrawing();
 };
 
 /**
@@ -42,10 +39,7 @@ const drawFeatures = (clickEvent) => {
  * @param {Event} clickEvent click event of the save note button
  */
 const saveNote = async (clickEvent) => {
-  const { map, editableSource, mapNotesApi } = Context.getContext();
-  // disable interaction
-  // TODO: encapsulate editable layer with methods (enable, disable, getSource, getLayer)
-  // TODO: remove from context
+  const { mapNotesLayer, mapNotesApi } = Context.getContext();
 
   const titleInput = document.getElementById(
     DOMConstants.NEW_NOTE_FORM_IDs.titleInputId
@@ -59,13 +53,17 @@ const saveNote = async (clickEvent) => {
   const mapNotePayload = { title: titleInput.value, body: bodyInput.value };
   const mapNote = await mapNotesApi.createMapNote(mapNotePayload);
 
-  const features = editableSource.getFeatures();
+  const features = mapNotesLayer.getDrawnFeatures();
   const featuresPayload = new GeoJSON().writeFeatures(features);
   await mapNotesApi.updateMapNoteFeatures(mapNote.id, featuresPayload);
 
   // synchronize UI
+  mapNotesLayer.disableDrawing();
+  mapNotesLayer.clearDrawnFeatures();
+
   bodyInput.value = "";
   titleInput.value = "";
+
   const noteSelector = document.getElementById(
     DOMConstants.NOTES_MANAGER_IDs.noteSelectorId
   );
